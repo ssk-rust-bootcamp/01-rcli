@@ -1,8 +1,9 @@
-use crate::opts::OutputFormat;
 use anyhow::Result;
 use csv::Reader;
 use serde::{Deserialize, Serialize};
 use std::fs;
+
+use crate::cli::OutputFormat;
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "PascalCase")]
@@ -22,10 +23,7 @@ pub fn process_csv(input: &str, output: String, format: OutputFormat) -> Result<
     let headers = reader.headers()?.clone();
     for result in reader.records() {
         let record = result?;
-        let json_value = headers
-            .iter()
-            .zip(record.iter())
-            .collect::<serde_json::Value>();
+        let json_value = headers.iter().zip(record.iter()).collect::<serde_json::Value>();
         ret.push(json_value);
     }
     let content = match format {

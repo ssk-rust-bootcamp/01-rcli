@@ -5,13 +5,7 @@ const LOWER: &[u8] = b"abcdefghijkmnopqrstuvwxyz";
 const NUMBER: &[u8] = b"123456789";
 const SYMBOL: &[u8] = b"!@#$%^&*_";
 
-pub fn process_gen_pass(
-    length: u8,
-    upper: bool,
-    lower: bool,
-    number: bool,
-    symbol: bool,
-) -> anyhow::Result<()> {
+pub fn process_genpass(length: u8, upper: bool, lower: bool, number: bool, symbol: bool) -> anyhow::Result<()> {
     let mut rng = rand::thread_rng();
     let mut password = Vec::new();
     let mut chars = Vec::new();
@@ -34,9 +28,7 @@ pub fn process_gen_pass(
     }
 
     for _ in 0..(length - password.len() as u8) {
-        let c = chars
-            .choose(&mut rng)
-            .expect("chars won't be empty in this context");
+        let c = chars.choose(&mut rng).expect("chars won't be empty in this context");
         password.push(*c);
     }
 
