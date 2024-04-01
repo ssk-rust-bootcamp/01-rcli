@@ -1,10 +1,10 @@
-use super::verify_input_file;
+use super::verify_file;
 use clap::Parser;
 use std::{fmt, str::FromStr};
 
 #[derive(Parser, Debug)]
 pub struct CsvOpts {
-    #[arg(short, long, value_parser = verify_input_file)]
+    #[arg(short, long, value_parser = verify_file)]
     pub input: String,
     #[arg(short, long, default_value = "output.json")]
     pub output: Option<String>,
