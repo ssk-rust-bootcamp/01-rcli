@@ -3,17 +3,10 @@ mod csv;
 mod genpass;
 mod http;
 mod text;
-
-use std::path::{Path, PathBuf};
-
-pub use self::{
-    base64::{Base64Format, Base64SubCommand},
-    csv::OutputFormat,
-    text::{TextSignFormat, TextSubCommand},
-};
-use self::{csv::CsvOpts, genpass::GenPassOpts};
+pub use self::{base64::*, csv::*, genpass::*, http::*, text::*};
 use clap::Parser;
-pub use http::*;
+use enum_dispatch::enum_dispatch;
+use std::path::{Path, PathBuf};
 
 #[derive(Parser, Debug)]
 #[command(name = "rcli", version, author, about, long_about = None)]
@@ -23,6 +16,7 @@ pub struct Opts {
 }
 
 #[derive(Parser, Debug)]
+#[enum_dispatch(CmdExector)]
 pub enum SubCommand {
     #[command(name = "csv", about = "Show CSV ,or convert CSV to other formats")]
     Csv(CsvOpts),
