@@ -1,5 +1,5 @@
 {
     "rust-analyzer.showUnlinkedFileNotification": false,
-    "rust-analyzer.cargo.targetDir": "D:/target",
+    "rust-analyzer.cargo.targetDir": "D:\\target",
 
 }
